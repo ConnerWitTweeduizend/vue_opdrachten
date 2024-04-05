@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <title>Vue CDN</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<style>
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+        border: 2px solid black;
+        padding: 5px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <h2>Bier tabel met veldnamen als headers:</h2>
+        <table>
+            <tr>
+                <th v-for="header in headers">{{header.title}}</th>
+            </tr>
+            <tr v-for="biertje in biertjes">
+                <td v-for="header in headers">{{biertje[header.field]}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    biertjes: [],
+                    getal: 5,
+                    headers: [
+                        { field: "id", title: "id" },
+                        { field: "naam", title: "biertje" },
+                        { field: "brouwer", title: "brouwer" },
+                        { field: "perc", title: "perc" },
+                        //{field: "type", title: "type"},
+                        //{field: "gisting", title: "gisting"},
+                        { field: "inkoop_prijs", title: "prijs" },
+
+                    ],
+                }
+            },
+            mounted() {
+                let url = "https://15euros.nl/api/bier_basic.php"
+                axios
+                    .get(url)
+                    .then(response => {
+                        console.log("response = ", response)
+                        this.biertjes = response.data
+                    })
+            },
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

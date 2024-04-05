@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <title>Vue CDN</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<style>
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+        border: 2px solid black;
+    }
+</style>    
+<body>
+    <h2>Vue via CDN</h2>
+    <div id="app">
+        test = {{test}}
+        <br><br>
+        <table>
+            <tr v-for="row in aNamen">
+                <td v-for="item in row">{{item}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    test: "testing 123",
+                    aNamen: [
+                        {vnaam: "Jan", tv: "", anaam: "Klaassen" },
+                        {vnaam: "Katrijn", tv: "van der", anaam: "Worp" }
+                    ]
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
